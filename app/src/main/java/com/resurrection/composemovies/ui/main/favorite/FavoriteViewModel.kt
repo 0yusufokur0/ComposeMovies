@@ -1,4 +1,4 @@
-package com.resurrection.composemovies.ui.main.detail
+package com.resurrection.composemovies.ui.main.favorite
 
 import androidx.lifecycle.ViewModel
 import com.resurrection.composemovies.data.repository.MovieRepository
@@ -6,5 +6,5 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(private val movieRepository: MovieRepository):ViewModel(){
+class FavoriteViewModel@Inject constructor(private val movieRepository: MovieRepository):ViewModel() {
 }
