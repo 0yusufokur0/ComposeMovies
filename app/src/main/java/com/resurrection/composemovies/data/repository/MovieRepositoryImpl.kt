@@ -2,10 +2,9 @@ package com.resurrection.composemovies.data.repository
 
 import com.resurrection.composemovies.data.db.dao.MovieDao
 import com.resurrection.composemovies.data.model.MovieDetails
-import com.resurrection.composemovies.data.model.SearchItem
+import com.resurrection.composemovies.data.model.MovieItem
 import com.resurrection.movies.data.model.SearchResults
 import com.resurrection.composemovies.data.remote.MovieApiService
-import com.resurrection.composemovies.data.repository.MovieRepository
 import com.resurrection.composemovies.util.Resource
 import com.resurrection.composemovies.util.getResourceByDatabaseRequest
 import com.resurrection.composemovies.util.getResourceByNetworkRequest
@@ -24,23 +23,23 @@ class MovieRepositoryImpl @Inject constructor(
         emit(getResourceByNetworkRequest { movieApiService.getMovieDetail(imdbId) })
     }
 
-    override suspend fun getMovieById(imdbID: String): Flow<Resource<SearchItem>> = flow {
+    override suspend fun getMovieById(imdbID: String): Flow<Resource<MovieItem>> = flow {
         emit(getResourceByDatabaseRequest { movieDao.getMovieById(imdbID) })
     }
 
-    override suspend fun getMovieByTitle(title: String): Flow<Resource<List<SearchItem>>> = flow {
+    override suspend fun getMovieByTitle(title: String): Flow<Resource<List<MovieItem>>> = flow {
         emit(getResourceByDatabaseRequest { movieDao.getMovieByTitle(title) })
     }
 
-    override suspend fun insertMovie(movie: SearchItem): Flow<Resource<Unit>> = flow {
+    override suspend fun insertMovie(movie: MovieItem): Flow<Resource<Unit>> = flow {
         emit(getResourceByDatabaseRequest { movieDao.insertMovie(movie) })
     }
 
-    override suspend fun removeMovie(movie: SearchItem): Flow<Resource<Unit>> = flow {
+    override suspend fun removeMovie(movie: MovieItem): Flow<Resource<Unit>> = flow {
         emit(getResourceByDatabaseRequest { movieDao.removeMovie(movie) })
     }
 
-    override suspend fun getFavoriteMovies(): Flow<Resource<List<SearchItem>>> = flow {
+    override suspend fun getFavoriteMovies(): Flow<Resource<List<MovieItem>>> = flow {
         emit(getResourceByDatabaseRequest { movieDao.getFavoriteMovies() })
     }
 

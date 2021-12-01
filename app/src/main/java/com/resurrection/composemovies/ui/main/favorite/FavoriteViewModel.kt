@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.resurrection.composemovies.data.model.SearchItem
+import com.resurrection.composemovies.data.model.MovieItem
 import com.resurrection.composemovies.data.repository.MovieRepository
 import com.resurrection.composemovies.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,10 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel@Inject constructor(private val movieRepository: MovieRepository):ViewModel() {
-    private val _movie = MutableLiveData<Resource<List<SearchItem>>>()
-    private val _movies = MutableLiveData<Resource<List<SearchItem>>>()
-    val movie: LiveData<Resource<List<SearchItem>>> = _movie
-    val movies: LiveData<Resource<List<SearchItem>>> = _movies
+    private val _movie = MutableLiveData<Resource<List<MovieItem>>>()
+    private val _movies = MutableLiveData<Resource<List<MovieItem>>>()
+    val movie: LiveData<Resource<List<MovieItem>>> = _movie
+    val movies: LiveData<Resource<List<MovieItem>>> = _movies
 
     fun getAllFavoriteMovies()  = viewModelScope.launch{
         movieRepository.getFavoriteMovies()

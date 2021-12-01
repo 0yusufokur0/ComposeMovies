@@ -2,11 +2,13 @@ package com.resurrection.composemovies.util
 
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 fun isNetworkAvailable(context: Context): Boolean {
     val connectivityManager =
@@ -40,4 +42,8 @@ fun toast(context: Context, message: String): Toast {
 fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+private fun Context?.getLifeCycleOwner() : AppCompatActivity? = when {
+    this is ContextWrapper -> if (this is AppCompatActivity) this else this.baseContext.getLifeCycleOwner()
+    else -> null
 }

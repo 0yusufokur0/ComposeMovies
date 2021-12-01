@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "search_item")
-data class SearchItem(
+data class MovieItem(
     @PrimaryKey
     @SerializedName("imdbID")
     val imdbID: String,

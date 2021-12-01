@@ -1,7 +1,7 @@
 package com.resurrection.movies.data.model
 
 import com.google.gson.annotations.SerializedName
-import com.resurrection.composemovies.data.model.SearchItem
+import com.resurrection.composemovies.data.model.MovieItem
 
 data class SearchResults(
     @SerializedName("Response")
@@ -11,5 +11,5 @@ data class SearchResults(
     var totalResults: String? = null,
 
     @SerializedName("Search")
-    var search: List<SearchItem>? = null
+    var movies: List<MovieItem>? = null
 )

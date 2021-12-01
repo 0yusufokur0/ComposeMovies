@@ -3,6 +3,7 @@ package com.resurrection.composemovies.ui.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.remember
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,10 +29,10 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController = navController, startDestination = routeHomeScreen()) {
 
                     // HomeScreen Composable
-                    composable(route = routeHomeScreen()) { HomeScreen(navController = navController) }
+                    composable(route = routeHomeScreen()) { HomeScreen(navController,this@MainActivity ) }
 
                     // FavoriteScreen Composable
-                    composable(route = routeFavoriteScreen()) { FavoriteScreen(navController = navController) }
+                    composable(route = routeFavoriteScreen()) { FavoriteScreen(navController, this@MainActivity) }
 
                     // DetailScreen Composable
                     composable(
@@ -38,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument(name = "movieId") { type = NavType.StringType  })
                     ) {
                         val movieId = remember { it.arguments?.getString("movieId") }
-                        DetailScreen(navController = navController, movieId = movieId ?: "")
+                        DetailScreen(navController,movieId ?: "",this@MainActivity)
                     }
 
 

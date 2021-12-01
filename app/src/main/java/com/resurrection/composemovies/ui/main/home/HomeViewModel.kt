@@ -1,5 +1,6 @@
 package com.resurrection.composemovies.ui.main.home
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,14 +18,25 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val movieRepository: MovieRepository):ViewModel(){
 
+    init {
+        //getMovie("Turkey")
+    }
+
     private val _movie = MutableLiveData<Resource<SearchResults>>()
     val movie: LiveData<Resource<SearchResults>> = _movie
 
-    fun getMovie(id: String) = viewModelScope.launch {
+    var testMovie = mutableStateOf<Resource<SearchResults>>(Resource.Loading())
 
+    fun getMovie(id: String) = viewModelScope.launch {
         movieRepository.getMovieById(id, 1)
             .onStart { _movie.postValue(Resource.Loading()) }
             .catch { message -> _movie.postValue(Resource.Error(message)) }
             .collect { _movie.postValue(it)  }
+
+
+/*        movieRepository.getMovieById(id, 1)
+            .onStart { testMovie.value = Resource.Loading() }
+            .catch { message -> testMovie.value = (Resource.Error(message)) }
+            .collect { testMovie.value = (it)  }*/
     }
 }

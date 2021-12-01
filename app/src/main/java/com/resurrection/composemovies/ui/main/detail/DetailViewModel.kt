@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resurrection.composemovies.data.model.MovieDetails
-import com.resurrection.composemovies.data.model.SearchItem
+import com.resurrection.composemovies.data.model.MovieItem
 import com.resurrection.composemovies.data.repository.MovieRepository
 import com.resurrection.composemovies.util.Resource
 import com.resurrection.composemovies.util.Status
@@ -36,9 +36,9 @@ class DetailViewModel @Inject constructor(private val movieRepository: MovieRepo
             .collect {  _movieDetail.postValue(Resource.Success(it.data))  }
     }
 
-    fun insertMovie(searchItem: SearchItem)  = viewModelScope.launch{
-        if (searchItem.imdbID.isNotEmpty()){
-            movieRepository.insertMovie(searchItem)
+    fun insertMovie(movieItem: MovieItem)  = viewModelScope.launch{
+        if (movieItem.imdbID.isNotEmpty()){
+            movieRepository.insertMovie(movieItem)
                 .onStart { _insertMovie.postValue(Resource.Loading()) }
                 .catch { message -> _insertMovie.postValue(Resource.Error(message)) }
                 .collect { _insertMovie.postValue(Resource.Success(null)) }
@@ -56,8 +56,8 @@ class DetailViewModel @Inject constructor(private val movieRepository: MovieRepo
         }else _isFavorite.postValue(Resource.Error(null))
     }
 
-    fun removeMovie(searchItem: SearchItem)  = viewModelScope.launch{
-        movieRepository.removeMovie(searchItem)
+    fun removeMovie(movieItem: MovieItem)  = viewModelScope.launch{
+        movieRepository.removeMovie(movieItem)
             .onStart { _isRemoved.postValue(Resource.Loading()) }
             .catch { message -> _isRemoved.postValue(Resource.Error(message)) }
             .collect {
