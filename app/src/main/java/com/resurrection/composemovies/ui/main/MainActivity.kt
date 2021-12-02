@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController = navController, startDestination = routeHomeScreen()) {
 
                     // HomeScreen Composable
-                    composable(route = routeHomeScreen()) { HomeScreen(navController,this@MainActivity ) }
+                    composable(route = routeHomeScreen()) { HomeScreen(this@MainActivity,navController,this@MainActivity ) }
 
                     // FavoriteScreen Composable
                     composable(route = routeFavoriteScreen()) { FavoriteScreen(navController, this@MainActivity) }
